@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db:
+    container_name: 'url_shortener_postgres'
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=url_shortener_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=123454321
+      - POSTGRES_HOST=localhost
+    ports:
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    volumes:
+      - ./scripts/structer.sql:/docker-entrypoint-initdb.d/structer.sql

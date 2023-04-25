@@ -1,0 +1,136 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "shortener.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "UrlShortener"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/save_url": {
+      "post": {
+        "operationId": "UrlShortener_SaveUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiSaveUrlResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/apiSaveUrlRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UrlShortener"
+        ]
+      }
+    },
+    "/v1/{shortUrl}": {
+      "get": {
+        "operationId": "UrlShortener_GetUrl",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiGetUrlResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shortUrl",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UrlShortener"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "apiGetUrlResponse": {
+      "type": "object",
+      "properties": {
+        "baseUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "apiSaveUrlRequest": {
+      "type": "object",
+      "properties": {
+        "baseUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "apiSaveUrlResponse": {
+      "type": "object",
+      "properties": {
+        "shortUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
